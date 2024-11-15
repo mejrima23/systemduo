@@ -14,4 +14,12 @@ describe("Example tests", () => {
       .should("be.visible")
       .and("not.be.disabled")
   })
+
+  //za zadacu, idemo na contact us, i provjeriti da li ima URL DOBAR  I naslov CONTACT US.
+
+  it.only("Navigate to Contact Us page", () => {
+    cy.get('a[href="/contact_us"]').should("be.visible").click()
+    cy.url().should("contain", "contact_us")
+    cy.get("#contact-page").should("contain", "Contact")
+  })
 })
