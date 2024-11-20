@@ -39,4 +39,24 @@ describe('Contact us tests', () => {
       { matchCase: false }
     )
   })
+  it('Validation for email', () => {
+    // When
+    cy.get('a[href*="contact"]').should('be.visible').click()
+
+    // Then
+    cy.url().should('contain', 'contact_us')
+
+    // When
+    cy.get('[data-qa="name"]').should('be.visible').clear().type('Test name')
+    cy.get('[data-qa="subject"]').clear().type('Something')
+    cy.get('[data-qa="message"]').clear().type('Message')
+
+    // And
+    cy.get('[data-qa="submit-button"]').should('be.enabled').click()
+
+    // Then
+    cy.get('[data-qa="email"]')
+      .invoke('prop', 'validationMessage')
+      .should('equal', 'Please fill out this field.')
+  })
 })
