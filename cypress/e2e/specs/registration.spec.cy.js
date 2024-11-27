@@ -3,7 +3,7 @@
 describe('Registration tests', () => {
   let email
   beforeEach('Navigate to automationexercise', () => {
-    email = `aid${Date.now()}@example.com`
+    email = `mejrima${Date.now()}@example.com`
     cy.visit('https://automationexercise.com/')
   })
 
@@ -15,7 +15,7 @@ describe('Registration tests', () => {
     cy.get('.signup-form').should('be.visible')
 
     // When
-    cy.get('[data-qa="signup-name"]').clear().type('Aid')
+    cy.get('[data-qa="signup-name"]').clear().type('Mejrima')
     cy.get('[data-qa="signup-email"]').clear().type(email)
     cy.get('[data-qa="signup-button"]').click()
 
@@ -31,7 +31,7 @@ describe('Registration tests', () => {
     cy.get('.signup-form').should('be.visible')
 
     // When
-    cy.get('[data-qa="signup-name"]').clear().type('Aid')
+    cy.get('[data-qa="signup-name"]').clear().type('Mejrima')
     cy.get('[data-qa="signup-email"]').clear().type(email)
     cy.get('[data-qa="signup-button"]').click()
 
@@ -39,18 +39,18 @@ describe('Registration tests', () => {
     cy.get('form[action*="signup"]').should('be.visible')
 
     // When
-    cy.get('input[type="radio"]').should('be.visible').check('Mr')
+    cy.get('input[type="radio"]').should('be.visible').check('Mrs')
     cy.get('[data-qa="email"]')
       .should('be.disabled')
       .and('have.attr', 'value', email)
     cy.get('[data-qa="password"]').clear().type('Test123')
-    cy.get('[data-qa="days"]').select(13)
-    cy.get('[data-qa="months"]').select(2)
-    cy.get('[data-qa="years"]').select('1997')
+    cy.get('[data-qa="days"]').select(7)
+    cy.get('[data-qa="months"]').select(12)
+    cy.get('[data-qa="years"]').select('1992')
     cy.get('#newsletter').check()
     cy.get('#optin').check()
-    cy.get('[data-qa="first_name"]').clear().type('Aid')
-    cy.get('[data-qa="last_name"]').clear().type('Hodzic')
+    cy.get('[data-qa="first_name"]').clear().type('Mejrima')
+    cy.get('[data-qa="last_name"]').clear().type('Ičanović')
     cy.get('[data-qa="company"]').clear().type('QA')
     cy.get('[data-qa="address"]').clear().type('Adresa')
     cy.get('[data-qa="country"]').select('Canada')
