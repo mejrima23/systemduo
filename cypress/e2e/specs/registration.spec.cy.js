@@ -118,7 +118,7 @@ describe('Registration tests', () => {
     //Then
     cy.get('a[href*="logout"]').should('be.visible')
   })
-  it('Succesfull registration and login', () => {
+  it('Validation for password field', () => {
     // When
     cy.get('a[href*="login"]').should('be.visible').click()
 
