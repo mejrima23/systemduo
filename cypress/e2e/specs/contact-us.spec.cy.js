@@ -1,8 +1,12 @@
 /// <reference types="cypress" />
 
 describe('Contact us tests', () => {
+  let messageBody
   beforeEach('Visit page', () => {
-    cy.visit('https://automationexercise.com/')
+    cy.fixture('example.json').then(($data) => {
+      messageBody = $data['message']
+    })
+    cy.visit('/')
   })
 
   it('Navigate to contact us form', () => {
@@ -28,7 +32,7 @@ describe('Contact us tests', () => {
     cy.get('[data-qa="name"]').should('be.visible').clear().type('Aid')
     cy.get('[data-qa="email"]').clear().type('aid@example.com')
     cy.get('[data-qa="subject"]').clear().type('Something')
-    cy.get('[data-qa="message"]').clear().type('Message')
+    cy.get('[data-qa="message"]').clear().type(messageBody)
 
     // And
     cy.get('[data-qa="submit-button"]').should('be.enabled').click()
@@ -39,7 +43,8 @@ describe('Contact us tests', () => {
       { matchCase: false }
     )
   })
-  it('Validation for email', () => {
+
+  it('Send message through contact us form without email insterted', () => {
     // When
     cy.get('a[href*="contact"]').should('be.visible').click()
 
@@ -47,7 +52,7 @@ describe('Contact us tests', () => {
     cy.url().should('contain', 'contact_us')
 
     // When
-    cy.get('[data-qa="name"]').should('be.visible').clear().type('Test name')
+    cy.get('[data-qa="name"]').should('be.visible').clear().type('Aid')
     cy.get('[data-qa="subject"]').clear().type('Something')
     cy.get('[data-qa="message"]').clear().type('Message')
 
@@ -57,6 +62,11 @@ describe('Contact us tests', () => {
     // Then
     cy.get('[data-qa="email"]')
       .invoke('prop', 'validationMessage')
-      .should('equal', 'Please fill out this field.')
+      .should('eq', 'Please fill out this field.')
+
+    cy.get('input:invalid')
+      .should('be.visible')
+      .invoke('prop', 'validationMessage')
+      .should('eq', 'Please fill out this field.')
   })
 })
